@@ -20,16 +20,26 @@
 
 1. docker打包命令
 
-`docker build -t whisper .`
+```
+docker build -t whisper .
+```
+
 
 2.docker命令启动
 
  **gpu显卡模式** 
 
-`docker run -itd --name whisper-api -p 3003:3003--gpus all --restart=always whisper`
+```
+docker run -itd --name whisper-api -p 3003:3003--gpus all --restart=always whisper
+```
+
 
  **cpu模式** 
-`docker run -itd --name whisper-api -p 3003:3003--restart=always whisper`
+
+```
+docker run -itd --name whisper-api -p 3003:3003--restart=always whisper
+```
+
 
  **鉴权模式** 
 
