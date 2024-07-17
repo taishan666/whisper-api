@@ -11,7 +11,7 @@
 #### 使用说明
 
 1.  下载代码
-2.  安装 ffmpeg [https://ffmpeg.org/download.html#build-windows](https://ffmpeg.org/download.html#build-windows)
+2.  安装 ffmpeg [https://ffmpeg.org/download.html](https://ffmpeg.org/download.html#build-windows)
 3.  安装依赖 项目根目录下执行命令 `pip install -r requirements.txt`
 4.  运行代码 项目根目录下执行命令 `python main.py`
 
