@@ -13,6 +13,8 @@ from whisper_script import WhisperHandler
 app = FastAPI()
 security = HTTPBearer()
 env_bearer_token = 'sk-tarzan'
+model_size = os.getenv("MODEL_SIZE", "base")
+language = os.getenv("LANGUAGE", "Chinese")
 
 
 def cleanup_temp_file(path):

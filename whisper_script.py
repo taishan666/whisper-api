@@ -6,7 +6,6 @@ from pydub import AudioSegment
 from pydub.exceptions import CouldntDecodeError
 
 
-
 class WhisperHandler:
     def __init__(self, audio_file: str = None, model_size: str = "base", download_root: str = None,
                  language: str = "auto", task: str = "transcribe",

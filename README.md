@@ -50,6 +50,11 @@ docker run -itd --name whisper-api -p 3003:3003-e ACCESS_TOKEN=yourtoken --resta
 ```
 - yourtoken 修改你设置的鉴权token,接口调用header 里传 `Authorization:Bearer sk-tarzan`
 
+ **docker日志查看**
+```
+docker logs -f [容器id或容器名称]
+```
+
 #### 配置文件
 options.json
 ```
