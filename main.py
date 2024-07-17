@@ -5,10 +5,10 @@ import tempfile
 import time
 
 import uvicorn
-from fastapi import FastAPI, UploadFile, File, Security,HTTPException
+from fastapi import FastAPI, UploadFile, File, Security, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from whisper_script import WhisperHandler
 
+from whisper_script import WhisperHandler
 
 app = FastAPI()
 security = HTTPBearer()
@@ -25,31 +25,33 @@ with open('options.json', 'r') as options:
     load_options = json.load(options)
 
 
+# 语音识别
 @app.post("/v1/audio/transcriptions")
 async def transcribe(file: UploadFile = File(...), credentials: HTTPAuthorizationCredentials = Security(security)):
     if env_bearer_token is not None and credentials.credentials != env_bearer_token:
         raise HTTPException(status_code=401, detail="Invalid token")
-    contents = await file.read()
-    return {"text": audio_to_text(contents, 'transcribe')}
+    file_bytes = await file.read()
+    return {"text": audio_to_text(file_bytes, 'transcribe')}
 
 
+# 语音翻译
 @app.post("/v1/audio/translations")
 async def translate(file: UploadFile = File(...), credentials: HTTPAuthorizationCredentials = Security(security)):
     if env_bearer_token is not None and credentials.credentials != env_bearer_token:
         raise HTTPException(status_code=401, detail="Invalid token")
-    contents = await file.read()
-    return {"text": audio_to_text(contents, 'translate')}
+    file_bytes = await file.read()
+    return {"text": audio_to_text(file_bytes, 'translate')}
 
 
-def audio_to_text(contents, task):
+def audio_to_text(file_bytes, task):
     start_time = time.time()
     max_file_size = 500 * 1024 * 1024
-    if len(contents) > max_file_size:
+    if len(file_bytes) > max_file_size:
         raise HTTPException(status_code=400, detail="File is too large")
     temp_path = None
     try:
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_audio:
-            temp_audio.write(contents)
+            temp_audio.write(file_bytes)
             temp_path = temp_audio.name
         model_size = load_options.get("model_size")
         language = load_options.get("language")
@@ -65,6 +67,7 @@ def audio_to_text(contents, task):
             "prepend_punctuations": load_options.get("prepend_punctuations"),
             "append_punctuations": load_options.get("append_punctuations")
         }
+        print('temp_path', temp_path)
         handler = WhisperHandler(temp_path, model_size=model_size, language=language, task=task, prompt=prompts)
         result = handler.transcribe()
     except Exception as e:
@@ -84,4 +87,3 @@ if __name__ == "__main__":
         uvicorn.run("main:app", reload=True, host="0.0.0.0", port=3003)
     except Exception as e:
         print(f"API启动失败！\n报错：\n{e}")
-

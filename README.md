@@ -30,14 +30,14 @@ docker build -t whisper .
  **gpu显卡模式** 
 
 ```
-docker run -itd --name whisper-api -p 3003:3003--gpus all --restart=always whisper
+docker run -itd --name whisper-api -p 3003:3003 --gpus all --restart=always whisper
 ```
 
 
  **cpu模式** 
 
 ```
-docker run -itd --name whisper-api -p 3003:3003--restart=always whisper
+docker run -itd --name whisper-api -p 3003:3003 --restart=always whisper
 ```
 
 
