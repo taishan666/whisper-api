@@ -11,10 +11,10 @@ from whisper_script import WhisperHandler
 
 app = FastAPI()
 security = HTTPBearer()
-env_bearer_token = 'sk-tarzan'
+env_bearer_token = os.getenv("ACCESS_TOKEN", 'sk-tarzan')
 model_size = os.getenv("MODEL_SIZE", "base")
 language = os.getenv("LANGUAGE", "Chinese")
-whisper_handler = None
+whisper_handler = WhisperHandler(model_size=model_size, download_root=os.path.dirname(__file__))
 
 
 def cleanup_temp_file(path):
@@ -52,8 +52,8 @@ def audio_to_text(file_bytes, task):
             temp_path = temp_audio.name
         print('temp_path', temp_path)
         result = whisper_handler.transcribe(temp_path, language=language, task=task)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as ex:
+        raise HTTPException(status_code=500, detail=str(ex))
     finally:
         atexit.register(cleanup_temp_file, temp_path)
     end_time = time.time()
@@ -62,11 +62,7 @@ def audio_to_text(file_bytes, task):
 
 
 if __name__ == "__main__":
-    token = os.getenv("ACCESS_TOKEN")
-    if token is not None:
-        env_bearer_token = token
     try:
-        whisper_handler = WhisperHandler(model_size=model_size, download_root=os.path.dirname(__file__))
         uvicorn.run("main:app", reload=True, host="0.0.0.0", port=3003)
     except Exception as e:
         print(f"API启动失败！\n报错：\n{e}")

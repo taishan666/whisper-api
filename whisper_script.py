@@ -22,7 +22,6 @@ class WhisperHandler:
         self.model_size = model_size if model_size in self.available_models else "base"
         self.download_root = download_root if download_root and os.path.isdir(download_root) else None
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        print(self.device)
         self.load_model = whisper.load_model(self.model_size, device=self.device, download_root=self.download_root)
 
     def transcribe(self, audio_file: str = None, language: str = "auto", task: str = "transcribe", prompt: dict = None):
