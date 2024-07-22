@@ -6,7 +6,7 @@
 #### 软件架构
 使用uvicorn、fastapi、openai-whisper等开源库实现高性能接口
 
-更多介绍 `[https://blog.csdn.net/weixin_40986713/article/details/138712293](https://blog.csdn.net/weixin_40986713/article/details/138712293)`
+更多介绍 [https://blog.csdn.net/weixin_40986713/article/details/138712293](https://blog.csdn.net/weixin_40986713/article/details/138712293)
 
 #### 使用说明
 
