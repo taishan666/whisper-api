@@ -1,4 +1,3 @@
-import atexit
 import os
 import tempfile
 import time
@@ -27,8 +26,7 @@ def cleanup_temp_file(path):
 async def transcribe(file: UploadFile = File(...), credentials: HTTPAuthorizationCredentials = Security(security)):
     if env_bearer_token is not None and credentials.credentials != env_bearer_token:
         raise HTTPException(status_code=401, detail="Invalid token")
-    file_bytes = await file.read()
-    return {"text": audio_to_text(file_bytes, 'transcribe')}
+    return {"text": audio_to_text(file, 'transcribe')}
 
 
 # 语音翻译
@@ -36,26 +34,23 @@ async def transcribe(file: UploadFile = File(...), credentials: HTTPAuthorizatio
 async def translate(file: UploadFile = File(...), credentials: HTTPAuthorizationCredentials = Security(security)):
     if env_bearer_token is not None and credentials.credentials != env_bearer_token:
         raise HTTPException(status_code=401, detail="Invalid token")
-    file_bytes = await file.read()
-    return {"text": audio_to_text(file_bytes, 'translate')}
+    return {"text": audio_to_text(file, 'translate')}
 
 
-def audio_to_text(file_bytes, task):
+def audio_to_text(file, task):
     start_time = time.time()
     max_file_size = 500 * 1024 * 1024
-    if len(file_bytes) > max_file_size:
+    if file.size > max_file_size:
         raise HTTPException(status_code=400, detail="File is too large")
-    temp_path = None
     try:
-        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_audio:
-            temp_audio.write(file_bytes)
-            temp_path = temp_audio.name
-        print('temp_path', temp_path)
+        temp_path = os.path.join(tempfile.gettempdir(), file.filename)
+        # 检查文件是否存在
+        if not os.path.exists(temp_path):
+            print(f"文件 {temp_path} 不存在.")
         result = whisper_handler.transcribe(temp_path, language=language, task=task)
     except Exception as ex:
+        print(ex)
         raise HTTPException(status_code=500, detail=str(ex))
-    finally:
-        atexit.register(cleanup_temp_file, temp_path)
     end_time = time.time()
     print(f"audio to text took {end_time - start_time:.2f} seconds")
     return result['text']
