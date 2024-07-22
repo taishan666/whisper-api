@@ -19,6 +19,7 @@ def detect_language(audio_file: str = None):
 class WhisperHandler:
     def __init__(self, model_size: str = "base", download_root: str = None):
         self.available_models = whisper.available_models()
+        print(f"[!] Available models: {self.available_models}")
         self.model_size = model_size if model_size in self.available_models else "base"
         self.download_root = download_root if download_root and os.path.isdir(download_root) else None
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
