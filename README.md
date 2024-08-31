@@ -83,4 +83,62 @@ Whisper的表现因语言而异，幅度很大。下图展示了使用WER（词�
 docker logs -f [容器id或容器名称]
 ```
 
+## 可识别语言细分
 
+- Dutch: 荷兰语
+- Spanish: 西班牙语
+- Korean: 韩语
+- Italian: 意大利语
+- German: 德语
+- Thai: 泰语
+- Russian: 俄语
+- Portuguese: 葡萄牙语
+- Polish: 波兰语
+- Indonesian: 印度尼西亚语
+- Mandarin (TW): 普通话（台湾）
+- Swedish: 瑞典语
+- Czech: 捷克语
+- English: 英语
+- Japanese: 日语
+- French: 法语
+- Romanian: 罗马尼亚语
+- Cantonese (CN): 粤语（中国大陆）
+- Turkish: 土耳其语
+- Mandarin (CN): 普通话（中国大陆）
+- Catalan: 加泰罗尼亚语
+- Hungarian: 匈牙利语
+- Ukrainian: 乌克兰语
+- Greek: 希腊语
+- Bulgarian: 保加利亚语
+- Arabic: 阿拉伯语
+- Serbian: 塞尔维亚语
+- Macedonian: 马其顿语
+- Cantonese (HK): 粤语（香港）
+- Latvian: 拉脱维亚语
+- Slovenian: 斯洛文尼亚语
+- Hindi: 印地语
+- Galician: 加利西亚语
+- Danish: 丹麦语
+- Urdu: 乌尔都语
+- Slovak: 斯洛伐克语
+- Hebrew: 希伯来语
+- Finnish: 芬兰语
+- Azerbaijani: 阿塞拜疆语
+- Lithuanian: 立陶宛语
+- Estonian: 爱沙尼亚语
+- Nynorsk: 新挪威语
+- Welsh: 威尔士语
+- Punjabi: 旁遮普语
+- Afrikaans: 南非荷兰语
+- Persian: 波斯语
+- Basque: 巴斯克语
+- Vietnamese: 越南语
+- Bengali: 孟加拉语
+- Nepali: 尼泊尔语
+- Marathi: 马拉地语
+- Belarusian: 白俄罗斯语
+- Kazakh: 哈萨克语
+- Armenian: 亚美尼亚语
+- Swahili: 斯瓦希里语
+- Tamil: 泰米尔语
+- Albanian: 阿尔巴尼亚语
