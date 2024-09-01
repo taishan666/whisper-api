@@ -25,7 +25,7 @@ class WhisperHandler:
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.load_model = whisper.load_model(self.model_size, device=self.device, download_root=self.download_root)
 
-    def transcribe(self, audio_file: str = None, language: str = "auto", task: str = "transcribe", prompt: dict = None):
+    def transcribe(self, audio_file: str = None, language: str = None, task: str = "transcribe", prompt: dict = None):
 
         if not audio_file:
             raise ValueError("[!] Audio file not provided!")

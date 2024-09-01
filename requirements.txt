@@ -4,4 +4,5 @@ fastapi~=0.110.0
 pydub~=0.25.1
 python-multipart~=0.0.9
 numpy~=1.23.5
-openai-whisper~=20231117
+openai-whisper
+opencc-python-reimplemented~=0.1.7
