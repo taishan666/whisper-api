@@ -59,9 +59,10 @@ docker run -itd --name whisper-api -p 3003:3003-e ACCESS_TOKEN=yourtoken MODEL_S
 docker run -itd --name whisper-api -p 3003:3003-e ACCESS_TOKEN=yourtoken MODEL_SIZE=base MODEL_SIZE=base LANGUAGE=Chinese  --restart=always whisper
 ```
 - ACCESS_TOKEN 默认是`sk-tarzan`,修改你设置的鉴权token,接口调用header 里传 `Authorization:Bearer sk-tarzan`
-- MODEL_SIZE模型类型，默认是base,可选模型Available models: ['tiny.en', 'tiny', 'base.en', 'base', 'small.en', 'small', 'medium.en', 'medium', 'large-v1', 'large-v2', 'large-v3', 'large']
-- LANGUAGE语言类型，默认根据用户语言自动选择，可选语言Available languages: ['Chinese','English','French','German','Italian','Korean','Polish','Portuguese','Russian','Spanish','Japanese']
-
+- MODEL_SIZE模型类型，默认是small,可选模型Available models: ['tiny.en', 'tiny', 'base.en', 'base', 'small.en', 'small', 'medium.en', 'medium', 'large-v1', 'large-v2', 'large-v3', 'large']
+- LANGUAGE语言类型，默认根据用户语言自动选择，可选语言Available languages: ['auto','Chinese','English','French','German','Italian','Korean','Polish','Portuguese','Russian','Spanish','Japanese']
+- LANGUAGE=auto 时会再第一次调用模型时候，下载tiny模型，使用tiny模式来判断用户的语言
+- 因为whisper模型训练时，没有区分中文简体和繁体，代码里对输出中文做了格式化处理，默认中文设置为简体中文
 ## 可用型号和语言
 
 您可能还需要安装 [`rust`](http://rust-lang.org)，以防 [tiktoken](https://github.com/openai/tiktoken) 没有为您的平台提供预编译的轮子。如果在上述 `pip install` 命令过程中遇到安装错误，请按照 [入门页面](https://www.rust-lang.org/learn/get-started) 的指引来安装 Rust 开发环境。此外，您可能需要配置 `PATH` 环境变量，例如 `export PATH="$HOME/.cargo/bin:$PATH"`。如果安装过程中出现 `No module named 'setuptools_rust'` 错误，您需要安装 `setuptools_rust`，可以通过运行类似命令来完成。
